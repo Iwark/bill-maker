@@ -1,0 +1,21 @@
+{
+  "name": "CoakiTweet",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "*",
+    "jade": "*",
+    "connect-busboy": "*",
+    "formidable": "*",
+    "officegen": "Iwark/officegen",
+    "pyspreadsheet": "*"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}
