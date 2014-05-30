@@ -23,7 +23,7 @@
 
   officegen = require("officegen");
 
-  xlsx = officegen('xlsx');
+  xlsx = void 0;
 
   SpreadsheetReader = require('pyspreadsheet').SpreadsheetReader;
 
@@ -53,20 +53,13 @@
 
   COLUMNS_WIDTH = 2.2;
 
-  xlsx.on('finalize', function(written) {
-    return console.log('Finish to create an Excel File. Total bytes created: ' + written);
-  });
-
-  xlsx.on('error', function(err) {
-    return console.log("Xlsx Err: " + err);
-  });
-
   app.get('/', function(req, res) {
     return res.render('index');
   });
 
   app.post('/upload', function(req, res) {
     var form;
+    xlsx = officegen('xlsx');
     form = new formidable.IncomingForm();
     return form.parse(req, function(err, fields, files) {
       var file_ext, file_name, file_size, index, new_path, old_path;

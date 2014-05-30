@@ -12,7 +12,7 @@ app.use busboy()
 
 fs = require "fs"
 officegen = require "officegen"
-xlsx = officegen 'xlsx'
+xlsx = undefined
 
 SpreadsheetReader = require('pyspreadsheet').SpreadsheetReader;
 
@@ -30,20 +30,13 @@ ADDR1_COLUMN  = 11   # 郵便番号
 ADDR2_COLUMN  = 12   # 住所①
 ADDR3_COLUMN  = 13   # 住所②
 
-
-
 COLUMNS_WIDTH = 2.2  # カラムの大きさ
-
-xlsx.on 'finalize', (written) ->
-	console.log 'Finish to create an Excel File. Total bytes created: ' + written
-
-xlsx.on 'error', (err) ->
-	console.log "Xlsx Err: " + err
 
 app.get '/', (req, res) ->
 	res.render 'index'
 
 app.post '/upload', (req, res) ->
+	xlsx = officegen 'xlsx'
 	form = new formidable.IncomingForm();
 	form.parse req, (err, fields, files) ->
 		old_path = files.file.path
