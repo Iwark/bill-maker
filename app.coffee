@@ -19,16 +19,17 @@ SpreadsheetReader = require('pyspreadsheet').SpreadsheetReader;
 OUTPUT_PATH = "ライター個人請求書.xlsx"
 
 WRITER_COLUMN = 3    # 名前
-PRICE_COLUMN  = 4    # 単価
-NUM_COLUMN    = 5    # 本数
-ID_COLUMN     = 6    # 請求番号
-BANK1_COLUMN  = 7    # 銀行名
-BANK2_COLUMN  = 8    # 支店名
-BANK3_COLUMN  = 9    # 口座番号
-BANK4_COLUMN  = 10   # 名義
-ADDR1_COLUMN  = 11   # 郵便番号
-ADDR2_COLUMN  = 12   # 住所①
-ADDR3_COLUMN  = 13   # 住所②
+TAX_COLUMN    = 4    # 個人（源泉徴収税） / 法人（消費税）
+PRICE_COLUMN  = 5    # 単価
+NUM_COLUMN    = 6    # 本数
+ID_COLUMN     = 7    # 請求番号
+BANK1_COLUMN  = 8    # 銀行名
+BANK2_COLUMN  = 9    # 支店名
+BANK3_COLUMN  = 10   # 口座番号
+BANK4_COLUMN  = 11   # 名義
+ADDR1_COLUMN  = 12   # 郵便番号
+ADDR2_COLUMN  = 13   # 住所①
+ADDR3_COLUMN  = 14   # 住所②
 
 COLUMNS_WIDTH = 2.2  # カラムの大きさ
 
@@ -98,6 +99,13 @@ readFile = (filePath) ->
 							writers.push writer
 						switch(cell.column)
 							when WRITER_COLUMN then writer["name"] = cell.value
+							when TAX_COLUMN
+								if cell.value == "個人"
+									writer["tax_name"] = "源泉徴収税"
+									writer["tax_val"] = 10.21
+								else if cell.value == "法人"
+									writer["tax_name"] = "消費税"
+									writer["tax_val"] = 8.00
 							when PRICE_COLUMN  then writer["price"] = cell.value
 							when NUM_COLUMN
 								writer["num"] = cell.value
@@ -215,7 +223,7 @@ makeBill = (writer) ->
 	sheet.setCellWithStyle 'G16', 'a', '24C'
 	sheet.setCellWithStyle 'H16', 'a', '24C'
 	sheet.mergeCells [15,8], [15,11]
-	sheet.setCellWithStyle 'I16', '¥'+String( (writer["sum"] - Math.floor(writer["sum"]*10.21/100)) ).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,' ), '22C'
+	sheet.setCellWithStyle 'I16', '¥'+String( (writer["sum"] - Math.ceil(writer["sum"]*writer["tax_val"]/100)) ).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,' ), '22C'
 	sheet.setCellWithStyle 'J16', 'a', '22C'
 	sheet.setCellWithStyle 'K16', 'a', '22C'
 	sheet.setCellWithStyle 'L16', 'a', '22C'
@@ -266,8 +274,8 @@ makeBill = (writer) ->
 		sheet.mergeCells [i-1,13], [i-1,17]
 		sheet.mergeCells [i-1,18], [i-1,20]
 	sheet.setCellWithStyle 'C28', '小計', '12C'
-	sheet.setCellWithStyle 'C29', '源泉徴収税(10.21%)', '12C'
+	sheet.setCellWithStyle 'C29', writer["tax_name"] + '(' + writer["tax_val"] + '%)', '12C'
 	sheet.setCellWithStyle 'N28', '¥'+String( writer["sum"] ).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,' ), '12C'
-	sheet.setCellWithStyle 'N29', '¥-'+String( Math.floor(writer["sum"]*10.21/100) ).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,' ), '12C'
+	sheet.setCellWithStyle 'N29', '¥-'+String( Math.ceil(writer["sum"]*writer["tax_val"]/100) ).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,' ), '12C'
 	sheet.setCellWithStyle 'B30', '合計', '12C'
-	sheet.setCellWithStyle 'N30', '¥'+String( (writer["sum"] - Math.floor(writer["sum"]*10.21/100)) ).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,' ), '12C'
+	sheet.setCellWithStyle 'N30', '¥'+String( (writer["sum"] - Math.ceil(writer["sum"]*writer["tax_val"]/100)) ).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,' ), '12C'

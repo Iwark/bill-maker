@@ -1,5 +1,5 @@
 (function() {
-  var ADDR1_COLUMN, ADDR2_COLUMN, ADDR3_COLUMN, BANK1_COLUMN, BANK2_COLUMN, BANK3_COLUMN, BANK4_COLUMN, COLUMNS_WIDTH, ID_COLUMN, NUM_COLUMN, OUTPUT_PATH, PRICE_COLUMN, SpreadsheetReader, WRITER_COLUMN, app, busboy, express, formidable, fs, makeBill, officegen, path, readFile, util, xlsx;
+  var ADDR1_COLUMN, ADDR2_COLUMN, ADDR3_COLUMN, BANK1_COLUMN, BANK2_COLUMN, BANK3_COLUMN, BANK4_COLUMN, COLUMNS_WIDTH, ID_COLUMN, NUM_COLUMN, OUTPUT_PATH, PRICE_COLUMN, SpreadsheetReader, TAX_COLUMN, WRITER_COLUMN, app, busboy, express, formidable, fs, makeBill, officegen, path, readFile, util, xlsx;
 
   express = require("express");
 
@@ -31,25 +31,27 @@
 
   WRITER_COLUMN = 3;
 
-  PRICE_COLUMN = 4;
+  TAX_COLUMN = 4;
 
-  NUM_COLUMN = 5;
+  PRICE_COLUMN = 5;
 
-  ID_COLUMN = 6;
+  NUM_COLUMN = 6;
 
-  BANK1_COLUMN = 7;
+  ID_COLUMN = 7;
 
-  BANK2_COLUMN = 8;
+  BANK1_COLUMN = 8;
 
-  BANK3_COLUMN = 9;
+  BANK2_COLUMN = 9;
 
-  BANK4_COLUMN = 10;
+  BANK3_COLUMN = 10;
 
-  ADDR1_COLUMN = 11;
+  BANK4_COLUMN = 11;
 
-  ADDR2_COLUMN = 12;
+  ADDR1_COLUMN = 12;
 
-  ADDR3_COLUMN = 13;
+  ADDR2_COLUMN = 13;
+
+  ADDR3_COLUMN = 14;
 
   COLUMNS_WIDTH = 2.2;
 
@@ -123,6 +125,15 @@
               switch (cell.column) {
                 case WRITER_COLUMN:
                   writer["name"] = cell.value;
+                  break;
+                case TAX_COLUMN:
+                  if (cell.value === "個人") {
+                    writer["tax_name"] = "源泉徴収税";
+                    writer["tax_val"] = 10.21;
+                  } else if (cell.value === "法人") {
+                    writer["tax_name"] = "消費税";
+                    writer["tax_val"] = 8.00;
+                  }
                   break;
                 case PRICE_COLUMN:
                   writer["price"] = cell.value;
@@ -290,7 +301,7 @@
     sheet.setCellWithStyle('G16', 'a', '24C');
     sheet.setCellWithStyle('H16', 'a', '24C');
     sheet.mergeCells([15, 8], [15, 11]);
-    sheet.setCellWithStyle('I16', '¥' + String(writer["sum"] - Math.floor(writer["sum"] * 10.21 / 100)).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,'), '22C');
+    sheet.setCellWithStyle('I16', '¥' + String(writer["sum"] - Math.ceil(writer["sum"] * writer["tax_val"] / 100)).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,'), '22C');
     sheet.setCellWithStyle('J16', 'a', '22C');
     sheet.setCellWithStyle('K16', 'a', '22C');
     sheet.setCellWithStyle('L16', 'a', '22C');
@@ -344,11 +355,11 @@
       sheet.mergeCells([i - 1, 18], [i - 1, 20]);
     }
     sheet.setCellWithStyle('C28', '小計', '12C');
-    sheet.setCellWithStyle('C29', '源泉徴収税(10.21%)', '12C');
+    sheet.setCellWithStyle('C29', writer["tax_name"] + '(' + writer["tax_val"] + '%)', '12C');
     sheet.setCellWithStyle('N28', '¥' + String(writer["sum"]).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,'), '12C');
-    sheet.setCellWithStyle('N29', '¥-' + String(Math.floor(writer["sum"] * 10.21 / 100)).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,'), '12C');
+    sheet.setCellWithStyle('N29', '¥-' + String(Math.ceil(writer["sum"] * writer["tax_val"] / 100)).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,'), '12C');
     sheet.setCellWithStyle('B30', '合計', '12C');
-    return sheet.setCellWithStyle('N30', '¥' + String(writer["sum"] - Math.floor(writer["sum"] * 10.21 / 100)).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,'), '12C');
+    return sheet.setCellWithStyle('N30', '¥' + String(writer["sum"] - Math.ceil(writer["sum"] * writer["tax_val"] / 100)).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,'), '12C');
   };
 
 }).call(this);
