@@ -94,10 +94,6 @@ readFile = (filePath) ->
 				row.forEach (cell) ->
 					if cell.row >= 4 && !stopLoop
 						writer = {}
-						if writers.length > cell.row - 4
-							writer = writers[cell.row-4]
-						else
-							writers.push writer
 						switch(cell.column)
 							when WRITER_COLUMN then writer["name"] = cell.value
 							when TAX_COLUMN
@@ -131,6 +127,8 @@ readFile = (filePath) ->
 							
 						if cell.column >= WRITER_COLUMN && (!writer["name"] || writer["name"] == "合計")
 							stopLoop = true
+						else
+							writers.push writer
 		writers.forEach (writer) ->
 			if(writer["name"] && writer["num"] && writer["num"] > 0 && writer["sum"] && writer["sum"] > 0)
 				makeBill(writer)

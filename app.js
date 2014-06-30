@@ -119,11 +119,6 @@
             var writer;
             if (cell.row >= 4 && !stopLoop) {
               writer = {};
-              if (writers.length > cell.row - 4) {
-                writer = writers[cell.row - 4];
-              } else {
-                writers.push(writer);
-              }
               switch (cell.column) {
                 case WRITER_COLUMN:
                   writer["name"] = cell.value;
@@ -188,6 +183,8 @@
               }
               if (cell.column >= WRITER_COLUMN && (!writer["name"] || writer["name"] === "合計")) {
                 return stopLoop = true;
+              } else {
+                return writers.push(writer);
               }
             }
           });
