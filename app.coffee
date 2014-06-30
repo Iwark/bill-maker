@@ -128,6 +128,7 @@ readFile = (filePath) ->
 						if cell.column >= WRITER_COLUMN && (!writer["name"] || writer["name"] == "合計")
 							stopLoop = true
 						else
+							console.log(writer)
 							writers.push writer
 		writers.forEach (writer) ->
 			if(writer["name"] && writer["num"] && writer["num"] > 0 && writer["sum"] && writer["sum"] > 0)

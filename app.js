@@ -184,6 +184,7 @@
               if (cell.column >= WRITER_COLUMN && (!writer["name"] || writer["name"] === "合計")) {
                 return stopLoop = true;
               } else {
+                console.log(writer);
                 return writers.push(writer);
               }
             }
