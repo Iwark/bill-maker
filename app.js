@@ -109,7 +109,7 @@
       workbook.sheets.forEach(function(sheet) {
         var stopLoop;
         console.log('sheet: %s(%d)', sheet.name, sheet.index);
-        if (sheet.index !== 7) {
+        if (sheet.index !== 0) {
           return;
         }
         stopLoop = false;
@@ -203,7 +203,7 @@
       });
       return xlsx.generate(out, {
         finalize: function(written) {
-          return console.log('Finish to create a file.\nTotal bytes created: ' + written + '\n');
+          return console.log('Finish to create a PowerPoint file.\nTotal bytes created: ' + written + '\n');
         },
         error: function(err) {
           return console.log(err);
