@@ -88,6 +88,7 @@ readFile = (filePath) ->
 			console.log 'sheet: %s(%d)', sheet.name, sheet.index
 			if sheet.index != 0
 				return
+			console.log 'sheet: %s(%d)', sheet.name, sheet.index
 			stopLoop = false
 			sheet.rows.forEach (row) ->
 				row.forEach (cell) ->

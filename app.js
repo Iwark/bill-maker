@@ -112,6 +112,7 @@
         if (sheet.index !== 0) {
           return;
         }
+        console.log('sheet: %s(%d)', sheet.name, sheet.index);
         stopLoop = false;
         return sheet.rows.forEach(function(row) {
           return row.forEach(function(cell) {
