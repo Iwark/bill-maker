@@ -86,7 +86,7 @@ readFile = (filePath) ->
 		writers = []
 		workbook.sheets.forEach (sheet) ->
 			console.log 'sheet: %s(%d)', sheet.name, sheet.index
-			if sheet.index != 7
+			if sheet.index != 0
 				return
 			stopLoop = false
 			sheet.rows.forEach (row) ->
