@@ -294,15 +294,14 @@
     sheet.setCellWithStyle('I13', 'a', '14BU');
     sheet.setCellWithStyle('J13', 'a', '14BU');
     sheet.setCellWithStyle('K13', 'a', '14BU');
-    sheet.mergeCells([13, 5], [13, 10]);
+    sheet.setCellWithStyle('G15', '', '14BT');
+    sheet.setCellWithStyle('H15', '', '14BT');
+    sheet.setCellWithStyle('I15', '', '14BT');
+    sheet.setCellWithStyle('J15', '', '14BT');
+    sheet.setCellWithStyle('K15', '', '14BT');
     if (writer["bank4"]) {
       sheet.setCellWithStyle('F14', writer["bank4"], '14BU');
     }
-    sheet.setCellWithStyle('G14', 'a', '14BU');
-    sheet.setCellWithStyle('H14', 'a', '14BU');
-    sheet.setCellWithStyle('I14', 'a', '14BU');
-    sheet.setCellWithStyle('J14', 'a', '14BU');
-    sheet.setCellWithStyle('K14', 'a', '14BU');
     sheet.mergeCells([15, 1], [15, 7]);
     sheet.setCellWithStyle('B16', '合計金額', '24C');
     sheet.setCellWithStyle('C16', 'a', '24C');
