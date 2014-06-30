@@ -228,11 +228,6 @@
     sheet.setCellWithStyle('B2', '御　請　求　書', '20B');
     sheet.mergeCells([3, 1], [3, 6]);
     sheet.setCellWithStyle('B4', '株式会社 Ｄｏｎｕｔｓ 御中', '18BU');
-    sheet.setCellWithStyle('C4', 'a', '18BU');
-    sheet.setCellWithStyle('D4', 'a', '18BU');
-    sheet.setCellWithStyle('E4', 'a', '18BU');
-    sheet.setCellWithStyle('F4', 'a', '18BU');
-    sheet.setCellWithStyle('G4', 'a', '18BU');
     dd = new Date();
     yy = dd.getYear();
     if (yy < 2000) {
@@ -241,10 +236,12 @@
     yy = yy - 2000 + 12;
     mon = dd.getMonth() + 1;
     dd = dd.getDate();
+    sheet.mergeCells([1, 14], [1, 18]);
     sheet.setCellWithStyle('O2', '平成' + yy + '年' + mon + '月' + dd + '日', '14BU');
     sheet.setCellWithStyle('R2', 'a', '14BU');
     sheet.setCellWithStyle('S2', 'a', '14BU');
     sheet.setCellWithStyle('T2', 'a', '14BU');
+    sheet.mergeCells([0, 14], [0, 17]);
     if (writer["id"]) {
       sheet.setCellWithStyle('O1', '請求番号: ' + writer["id"], '11');
     }
@@ -260,42 +257,22 @@
     }
     sheet.setCellWithStyle('O10', writer["name"], '12');
     sheet.setCellWithStyle('B11', '振込先銀行', '14BU');
-    sheet.setCellWithStyle('C11', 'a', '14BU');
-    sheet.setCellWithStyle('D11', 'a', '14BU');
     sheet.setCellWithStyle('B13', '口座番号', '14BU');
-    sheet.setCellWithStyle('C13', 'a', '14BU');
-    sheet.setCellWithStyle('D13', 'a', '14BU');
     sheet.setCellWithStyle('B14', '名義', '14BU');
-    sheet.setCellWithStyle('C14', 'a', '14BU');
-    sheet.setCellWithStyle('D14', 'a', '14BU');
     if (writer["bank1"]) {
       sheet.setCellWithStyle('E11', writer["bank1"], '14BU');
     }
-    sheet.setCellWithStyle('F11', 'a', '14BU');
-    sheet.setCellWithStyle('G11', 'a', '14BU');
-    sheet.setCellWithStyle('H11', 'a', '14BU');
-    sheet.setCellWithStyle('I11', 'a', '14BU');
     if (writer["bank2"]) {
       sheet.setCellWithStyle('E12', writer["bank2"], '14BU');
     }
-    sheet.setCellWithStyle('F12', 'a', '14BU');
-    sheet.setCellWithStyle('G12', 'a', '14BU');
-    sheet.setCellWithStyle('H12', 'a', '14BU');
-    sheet.setCellWithStyle('I12', 'a', '14BU');
+    sheet.mergeCells([12, 4], [12, 8]);
     if (writer["bank3"]) {
       sheet.setCellWithStyle('E13', writer["bank3"], '14BU');
     }
-    sheet.setCellWithStyle('F13', 'a', '14BU');
-    sheet.setCellWithStyle('G13', 'a', '14BU');
-    sheet.setCellWithStyle('H13', 'a', '14BU');
-    sheet.setCellWithStyle('I13', 'a', '14BU');
     if (writer["bank4"]) {
       sheet.setCellWithStyle('E14', writer["bank4"], '14BU');
     }
-    sheet.setCellWithStyle('F14', 'a', '14BU');
-    sheet.setCellWithStyle('G14', 'a', '14BU');
-    sheet.setCellWithStyle('H14', 'a', '14BU');
-    sheet.setCellWithStyle('I14', 'a', '14BU');
+    sheet.mergeCells([15, 1], [15, 7]);
     sheet.setCellWithStyle('B16', '合計金額', '24C');
     sheet.setCellWithStyle('C16', 'a', '24C');
     sheet.setCellWithStyle('D16', 'a', '24C');
@@ -303,6 +280,7 @@
     sheet.setCellWithStyle('F16', 'a', '24C');
     sheet.setCellWithStyle('G16', 'a', '24C');
     sheet.setCellWithStyle('H16', 'a', '24C');
+    sheet.mergeCells([15, 8], [15, 11]);
     sheet.setCellWithStyle('I16', '¥' + String(writer["sum"] - Math.ceil(writer["sum"] * writer["tax_val"] / 100)).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,'), '22C');
     sheet.setCellWithStyle('J16', 'a', '22C');
     sheet.setCellWithStyle('K16', 'a', '22C');
