@@ -138,7 +138,11 @@ readFile = (filePath) ->
 		out.on 'error', (err) ->
 			console.log "Error: " + err
 
-		xlsx.generate out
+		xlsx.generate out,
+			finalize: (written) ->
+				console.log ( 'Finish to create a PowerPoint file.\nTotal bytes created: ' + written + '\n' )
+			error: (err) ->
+				console.log ( err )
 
 makeBill = (writer) ->
 	sheet = xlsx.makeNewSheet()

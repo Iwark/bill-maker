@@ -201,7 +201,14 @@
       out.on('error', function(err) {
         return console.log("Error: " + err);
       });
-      return xlsx.generate(out);
+      return xlsx.generate(out, {
+        finalize: function(written) {
+          return console.log('Finish to create a PowerPoint file.\nTotal bytes created: ' + written + '\n');
+        },
+        error: function(err) {
+          return console.log(err);
+        }
+      });
     });
   };
 
