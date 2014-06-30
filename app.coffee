@@ -16,7 +16,7 @@ xlsx = undefined
 
 SpreadsheetReader = require('pyspreadsheet').SpreadsheetReader;
 
-OUTPUT_PATH = "ライター個人請求書.xlsx"
+OUTPUT_PATH = "writer-bill.xlsx"
 
 WRITER_COLUMN = 3    # 名前
 TAX_COLUMN    = 4    # 個人（源泉徴収税） / 法人（消費税）
