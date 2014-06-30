@@ -241,39 +241,33 @@
     yy = yy - 2000 + 12;
     mon = dd.getMonth() + 1;
     dd = dd.getDate();
-    sheet.mergeCells([1, 16], [1, 20]);
-    sheet.setCellWithStyle('Q2', '平成' + yy + '年' + mon + '月' + dd + '日', '14BU');
+    sheet.setCellWithStyle('O2', '平成' + yy + '年' + mon + '月' + dd + '日', '14BU');
     sheet.setCellWithStyle('R2', 'a', '14BU');
     sheet.setCellWithStyle('S2', 'a', '14BU');
     sheet.setCellWithStyle('T2', 'a', '14BU');
-    sheet.mergeCells([0, 16], [0, 19]);
     if (writer["id"]) {
-      sheet.setCellWithStyle('Q1', '請求番号: ' + writer["id"], '11');
+      sheet.setCellWithStyle('O1', '請求番号: ' + writer["id"], '11');
     }
     sheet.setCellWithStyle('B6', '下記のとおり御請求申し上げます', '12');
     if (writer["addr1"]) {
-      sheet.setCellWithStyle('Q7', writer["addr1"], '12');
+      sheet.setCellWithStyle('O7', writer["addr1"], '12');
     }
     if (writer["addr2"]) {
-      sheet.setCellWithStyle('Q8', writer["addr2"], '12');
+      sheet.setCellWithStyle('O8', writer["addr2"], '12');
     }
     if (writer["addr3"]) {
-      sheet.setCellWithStyle('Q9', writer["addr3"], '12');
+      sheet.setCellWithStyle('O9', writer["addr3"], '12');
     }
-    sheet.setCellWithStyle('Q10', writer["name"], '12');
-    sheet.mergeCells([10, 1], [10, 3]);
+    sheet.setCellWithStyle('O10', writer["name"], '12');
     sheet.setCellWithStyle('B11', '振込先銀行', '14BU');
     sheet.setCellWithStyle('C11', 'a', '14BU');
     sheet.setCellWithStyle('D11', 'a', '14BU');
-    sheet.mergeCells([12, 1], [12, 3]);
     sheet.setCellWithStyle('B13', '口座番号', '14BU');
     sheet.setCellWithStyle('C13', 'a', '14BU');
     sheet.setCellWithStyle('D13', 'a', '14BU');
-    sheet.mergeCells([13, 1], [13, 3]);
     sheet.setCellWithStyle('B14', '名義', '14BU');
     sheet.setCellWithStyle('C14', 'a', '14BU');
     sheet.setCellWithStyle('D14', 'a', '14BU');
-    sheet.mergeCells([10, 4], [10, 8]);
     if (writer["bank1"]) {
       sheet.setCellWithStyle('E11', writer["bank1"], '14BU');
     }
@@ -281,7 +275,6 @@
     sheet.setCellWithStyle('G11', 'a', '14BU');
     sheet.setCellWithStyle('H11', 'a', '14BU');
     sheet.setCellWithStyle('I11', 'a', '14BU');
-    sheet.mergeCells([11, 4], [11, 8]);
     if (writer["bank2"]) {
       sheet.setCellWithStyle('E12', writer["bank2"], '14BU');
     }
@@ -289,7 +282,6 @@
     sheet.setCellWithStyle('G12', 'a', '14BU');
     sheet.setCellWithStyle('H12', 'a', '14BU');
     sheet.setCellWithStyle('I12', 'a', '14BU');
-    sheet.mergeCells([12, 4], [12, 8]);
     if (writer["bank3"]) {
       sheet.setCellWithStyle('E13', writer["bank3"], '14BU');
     }
@@ -297,7 +289,6 @@
     sheet.setCellWithStyle('G13', 'a', '14BU');
     sheet.setCellWithStyle('H13', 'a', '14BU');
     sheet.setCellWithStyle('I13', 'a', '14BU');
-    sheet.mergeCells([13, 4], [13, 8]);
     if (writer["bank4"]) {
       sheet.setCellWithStyle('E14', writer["bank4"], '14BU');
     }
@@ -305,7 +296,6 @@
     sheet.setCellWithStyle('G14', 'a', '14BU');
     sheet.setCellWithStyle('H14', 'a', '14BU');
     sheet.setCellWithStyle('I14', 'a', '14BU');
-    sheet.mergeCells([15, 1], [15, 7]);
     sheet.setCellWithStyle('B16', '合計金額', '24C');
     sheet.setCellWithStyle('C16', 'a', '24C');
     sheet.setCellWithStyle('D16', 'a', '24C');
@@ -313,7 +303,6 @@
     sheet.setCellWithStyle('F16', 'a', '24C');
     sheet.setCellWithStyle('G16', 'a', '24C');
     sheet.setCellWithStyle('H16', 'a', '24C');
-    sheet.mergeCells([15, 8], [15, 11]);
     sheet.setCellWithStyle('I16', '¥' + String(writer["sum"] - Math.ceil(writer["sum"] * writer["tax_val"] / 100)).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,'), '22C');
     sheet.setCellWithStyle('J16', 'a', '22C');
     sheet.setCellWithStyle('K16', 'a', '22C');
@@ -341,15 +330,10 @@
         }
       }
     }
-    sheet.mergeCells([16, 1], [16, 7]);
     sheet.setCellWithStyle('B17', '摘要', '12C');
-    sheet.mergeCells([16, 8], [16, 9]);
     sheet.setCellWithStyle('I17', '数量', '12C');
-    sheet.mergeCells([16, 10], [16, 12]);
     sheet.setCellWithStyle('K17', '単価', '12C');
-    sheet.mergeCells([16, 13], [16, 17]);
     sheet.setCellWithStyle('N17', '金額(税抜)', '12C');
-    sheet.mergeCells([16, 18], [16, 20]);
     sheet.setCellWithStyle('S17', '備考', '12C');
     sheet.setCellWithStyle('C18', '原稿料(' + mon + '月分)', '12C');
     sheet.setCellWithStyle('I18', '' + writer["num"], '12C');
