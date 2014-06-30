@@ -115,10 +115,13 @@
         console.log('sheet: %s(%d)', sheet.name, sheet.index);
         stopLoop = false;
         return sheet.rows.forEach(function(row) {
-          return row.forEach(function(cell) {
-            var writer;
+          var writer;
+          if (stopLoop) {
+            return;
+          }
+          writer = {};
+          row.forEach(function(cell) {
             if (cell.row >= 4 && !stopLoop) {
-              writer = {};
               switch (cell.column) {
                 case WRITER_COLUMN:
                   writer["name"] = cell.value;
@@ -181,14 +184,15 @@
                     writer["addr3"] = cell.value;
                   }
               }
-              if (cell.column >= WRITER_COLUMN && (!writer["name"] || writer["name"] === "合計")) {
-                return stopLoop = true;
-              } else {
-                console.log(writer);
-                return writers.push(writer);
+              if (cell.column > ADDR3_COLUMN) {
+                if (!writer["name"] || writer["name"] === "合計") {
+                  stopLoop = true;
+                }
               }
             }
           });
+          writers.push(writer);
+          return console.log(writer);
         });
       });
       writers.forEach(function(writer) {

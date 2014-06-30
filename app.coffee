@@ -91,9 +91,11 @@ readFile = (filePath) ->
 			console.log 'sheet: %s(%d)', sheet.name, sheet.index
 			stopLoop = false
 			sheet.rows.forEach (row) ->
+				if stopLoop
+					return
+				writer = {}
 				row.forEach (cell) ->
 					if cell.row >= 4 && !stopLoop
-						writer = {}
 						switch(cell.column)
 							when WRITER_COLUMN then writer["name"] = cell.value
 							when TAX_COLUMN
@@ -125,11 +127,12 @@ readFile = (filePath) ->
 							when ADDR3_COLUMN
 								writer["addr3"] = cell.value if cell.value
 							
-						if cell.column >= WRITER_COLUMN && (!writer["name"] || writer["name"] == "合計")
-							stopLoop = true
-						else
-							console.log(writer)
-							writers.push writer
+						if cell.column > ADDR3_COLUMN
+							if (!writer["name"] || writer["name"] == "合計")
+								stopLoop = true
+							return
+				writers.push writer
+				console.log(writer)
 		writers.forEach (writer) ->
 			if(writer["name"] && writer["num"] && writer["num"] > 0 && writer["sum"] && writer["sum"] > 0)
 				makeBill(writer)
