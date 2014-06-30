@@ -191,7 +191,7 @@
               }
             }
           });
-          if (writer["name"]) {
+          if (writer["name"] && writer["num"] && writer["num"] > 0) {
             writers.push(writer);
             return console.log(writer);
           }
