@@ -191,8 +191,10 @@
               }
             }
           });
-          writers.push(writer);
-          return console.log(writer);
+          if (writer["name"]) {
+            writers.push(writer);
+            return console.log(writer);
+          }
         });
       });
       writers.forEach(function(writer) {

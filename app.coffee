@@ -131,8 +131,9 @@ readFile = (filePath) ->
 							if (!writer["name"] || writer["name"] == "合計")
 								stopLoop = true
 							return
-				writers.push writer
-				console.log(writer)
+				if(writer["name"])
+					writers.push writer
+					console.log(writer)
 		writers.forEach (writer) ->
 			if(writer["name"] && writer["num"] && writer["num"] > 0 && writer["sum"] && writer["sum"] > 0)
 				makeBill(writer)
